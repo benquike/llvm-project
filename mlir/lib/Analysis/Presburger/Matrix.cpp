@@ -684,7 +684,7 @@ IntMatrix::computeSmithNormalForm() const {
         }
       }
 
-      if (auto row = findNonMultipleRow(d, i + 1, pivot)) {
+      if (auto row = findNonMultipleRow(d, i + 1, d(i, i))) {
         // Add the row (r) to row i. This brings d(r, c) into the i-th row,
         // creating a new value at d(i, c) that will be used to reduce the
         // pivot size.

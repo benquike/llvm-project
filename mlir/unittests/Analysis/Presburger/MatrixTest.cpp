@@ -307,6 +307,16 @@ TEST(MatrixTest, computeSmithNormalForm) {
     IntMatrix mat = makeIntMatrix(1, 1, {{9}});
     checkSmithNormalForm(mat);
   }
+
+  {
+    // Regression test for stale pivot bug.
+    // In the first iteration, pvt = 2. Clearing rows/cols will not change
+    // d(0,0). findNonMultipleRow will then check if d(1,1) is a multiple of 2.
+    // If it uses the stale pivot (2), it will find d(1,1) = 1 is not a multiple
+    // and add row 1 to row 0.
+    IntMatrix mat = makeIntMatrix(2, 2, {{2, 2}, {0, 1}});
+    checkSmithNormalForm(mat);
+  }
 }
 
 TEST(MatrixTest, inverse) {
